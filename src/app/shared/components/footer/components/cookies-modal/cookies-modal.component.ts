@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SimpleButtonComponent } from '@shared-components/simple-button';
-import { HomeComponent } from '../../../../../features/home/pages/home/home.component';
 import { CookiesService } from '@core-services/cookies/cookies.service';
 import { FooterComponent } from '@shared-components/footer/footer/footer.component';
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogModule } from '@angular/material/dialog';

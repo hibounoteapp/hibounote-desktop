@@ -1,28 +1,22 @@
 <nav>
   <div id="desktop-port">
     <div class="flex flex-row items-center">
-      <a [routerLink]="['/']"><img src="../../../../../assets/logo.svg" alt="logoHibounote" id="logo"></a>
+      <a href="https://hibounote.vercel.app" target="_blank"><img src="assets/logo.svg" alt="logoHibounote" id="logo" matTooltip="Go to web page"></a>
       <aside class="ms-4 font-bold">Hibounote</aside>
 
     </div>
     <div class="flex flex-row items-center">
-      <a [routerLink]="['/about']" class="me-10">
-        About
-      </a>
       <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
-        <mat-icon class="me-4" svgIcon="info"></mat-icon>
+        <img src="assets/icons/info-outline.svg" style="width: 30px; height: 30px;" alt="info" matTooltip="See tutorials">
       </a>
-      <button class="w-14">
-        <img src="../../../../../assets/user_placeholder.svg" alt="" class="rounded-full w-full" matTooltip="🚧 In progress!">
-      </button>
     </div>
   </div>
 
   <div id="mobile-port">
-    <a [routerLink]="['/']"><img src="../../assets/logo.svg" alt="logoHibounote" id="logo"></a>
+    <a [routerLink]="['/']"><img src="assets/logo.svg" alt="logoHibounote" id="logo"></a>
     <div class="flex flex-row items-center">
       <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
-        <mat-icon class="me-4" svgIcon="info"></mat-icon>
+        <img src="assets/icons/info-outline.svg" alt="info" id="logo" matTooltip="Go to web page">
       </a>
       <button class="w-14">
         <img src="https://placehold.co/128x128?text=User" alt="" class="rounded-full w-full" matTooltip="🚧 In progress!">

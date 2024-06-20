@@ -1,6 +1,6 @@
 <div class="board-container" id='{{item.id}}'>
   <button class="all-center rounded p-1 shadow m-1" (click)="editBoard.emit($event)">
-    <mat-icon svgIcon="edit" style="width: 80%;"></mat-icon>
+    <img src="assets/icons/edit-outline.svg" style="width: 18px; height: 18px;" alt="edit">
   </button>
   <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="h-full flex-grow rounded  flex-row-center justify-between px-2 py-2">
     <p class="me-5 text-start">{{item.name}}</p>

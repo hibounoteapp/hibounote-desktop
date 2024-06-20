@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { IconService } from '@shared-services/icon/icon.service';
+import { ElectronService } from '@core-services/electron/electron.service';
 
 @Component({
   selector: 'navbar-component',
@@ -27,7 +28,8 @@ export class NavbarComponent {
     private renderer: Renderer2,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private iconService: IconService
+    private iconService: IconService,
+    private es: ElectronService
   ) {
 
   }
@@ -47,9 +49,7 @@ export class NavbarComponent {
   }
 
   saveData() {
-    this.boardData.saveData();
+    this.es.saveInDevice()
     this.router.navigate(['/account'])
   }
-
-
 }

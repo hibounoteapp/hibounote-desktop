@@ -14,6 +14,7 @@ import { EditBoardModalComponent } from '../../components/edit-board-modal/edit-
 import { IconService } from '@shared-services/icon/icon.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CookiesService } from '@core-services/cookies/cookies.service';
+import { ElectronService } from '@core-services/electron/electron.service';
 
 
 @Component({
@@ -38,18 +39,25 @@ export class AccountComponent{
   constructor(
     cookieService: CookieService,
     cookiesService: CookiesService,
-    boardData: BoardDataService
+    boardData: BoardDataService,
+    protected es: ElectronService
   ) {
-    if(cookiesService.accepted) {
 
-      let fetchedBoards = boardData.boards;
-      try {
-        fetchedBoards = JSON.parse(localStorage.getItem("boards")??'')??[]
-      } catch (error) {}
-
+    let fetchedBoards = boardData.boards;
+    boardData.boards=[]
+    
+    this.es.getInDevice()
+    .then((res)=>{
+      fetchedBoards = JSON.parse(res);
 
       boardData.boards = fetchedBoards
-    }
-  }
+    })
 
+    .catch((err)=>{
+      boardData.boards = []
+    })
+
+
+
+  }
 }
