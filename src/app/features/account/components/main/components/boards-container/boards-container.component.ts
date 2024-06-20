@@ -8,6 +8,7 @@ import { Board } from '@custom-interfaces/board';
 import { CommonModule } from '@angular/common';
 import { BoardCardComponent } from './components/board-card/board-card.component';
 import { EditBoardModalComponent } from '../../../edit-board-modal/edit-board-modal.component';
+import { SearchBarService } from '../../../../services/search-bar/search-bar.service';
 
 @Component({
   selector: 'account-main-boardsContainer',
@@ -18,14 +19,14 @@ import { EditBoardModalComponent } from '../../../edit-board-modal/edit-board-mo
 })
 export class BoardsContainerComponent {
   input: string = '';
-  filteredBoards: Board[] = this.boardData.boards;
 
   constructor(
     public boardData: BoardDataService,
     private renderer: Renderer2,
     private boardService: BoardService,
     private dialog: MatDialog,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    protected searchBar: SearchBarService
   ) {}
 
   createBoard() {
@@ -44,28 +45,16 @@ export class BoardsContainerComponent {
 
       if(result.value === '$#DELETE#$') {
         this.boardData.deleteBoard(id);
-        this.filter();
+        this.searchBar.filter(this.input);
         return
       }
 
       this.boardData.editBoardName(id,value)
-      this.filter();
+      this.searchBar.filter(this.input);
     })
   }
 
-  filter() {
-    if(this.input === '') {
-      this.filteredBoards = this.boardData.boards
-      return
-    }
-    const boards = [...this.boardData.boards];
-    const newBoards = boards.filter((board)=>board.name.includes(this.input))
-    this.filteredBoards = newBoards;
-  }
-
   setSearch(event: Event) {
-    if(event.target instanceof HTMLInputElement)
-    this.input = event.target.value;
-    this.filter();
+    this.searchBar.setSearch(event,this.input)
   }
 }

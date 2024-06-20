@@ -49,7 +49,7 @@ export class NavbarComponent {
   }
 
   saveData() {
-    this.es.saveInDevice()
+    this.boardData.saveData();
     this.router.navigate(['/account'])
   }
 }

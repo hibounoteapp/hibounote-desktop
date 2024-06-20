@@ -86,7 +86,6 @@ export class BoardComponent implements AfterViewInit, OnInit{
   }
 
   checkData(boardData: BoardDataService, nodeService: NodeService, renderer: Renderer2) {
-    if(!this.cookiesService.accepted) return
     const id = this.activeRoute.snapshot.queryParamMap.get('id') ?? ''
     const activeBoard: Board | undefined = boardData.getData(id)
 
@@ -241,6 +240,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
     public boardData: BoardDataService,
     private cookiesService: CookiesService) {
       boardService.appRenderer = renderer
+      console.log(boardData.boards)
     }
 
   ngOnInit(): void {

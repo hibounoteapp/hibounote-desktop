@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, WritableSignal, signal } from '@angular/core';
 import { Board } from '../../../core/models/interfaces/board';
 import { BoardService } from '../board/board.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,11 +7,9 @@ import { NodeService } from '../../../features/board/services/node/node.service'
 import { CookieService } from 'ngx-cookie-service';
 import { CookiesService } from '@core-services/cookies/cookies.service';
 import kanban from '@core-board-templates/kanban';
-import sprintRetrospective from '@core-board-templates/sprint-retrospective';
 import { TemplateBoard } from '../../../core/models/types/template-board';
-import sprintRetro2 from '@core-board-templates/sprint-retrospective2';
 import sprintRetro from '@core-board-templates/sprint-retrospective';
-import useCase from '@core-board-templates/usecase';
+import { ElectronService } from '@core-services/electron/electron.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +34,8 @@ export class BoardDataService implements OnInit{
     protected nodeService: NodeService,
     private router: Router,
     private cookieService: CookieService,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
+    protected es: ElectronService
   ) {
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
@@ -76,9 +75,7 @@ export class BoardDataService implements OnInit{
   createBoardFromTemplate(
     template:
     "sprint-retro" |
-    "kanban" |
-    "useCase" |
-    "sprint-retro2"
+    "kanban"
   ) {
 
     let templateBoard: TemplateBoard = kanban;
@@ -86,14 +83,6 @@ export class BoardDataService implements OnInit{
     switch (template) {
       case "sprint-retro":
         templateBoard = sprintRetro;
-        break;
-
-      case "sprint-retro2":
-        templateBoard = sprintRetro2;
-        break;
-
-      case "useCase":
-        templateBoard = useCase;
         break;
 
       case "kanban":
@@ -104,6 +93,8 @@ export class BoardDataService implements OnInit{
         break;
     }
 
+    console.log(sprintRetro)
+    console.log(kanban)
     const id = uuid();
     this.boards.push({
       id,
@@ -124,7 +115,6 @@ export class BoardDataService implements OnInit{
   }
 
   saveData() {
-    if(!this.cookiesService.accepted) return
     const id = this.activatedRoute.snapshot.queryParamMap.get('id')
     let board = this.boards.find(element=>element.id === id)
 
@@ -136,11 +126,11 @@ export class BoardDataService implements OnInit{
       this.saveConnections(board);
 
       this.saveNodes(board);
-
       board.zoomScale = this.boardService.panzoom.getScale();
+
+      this.es.saveInDevice(JSON.stringify(this.boards));
     }
 
-    localStorage.setItem("boards",JSON.stringify(this.boards))
   }
 
   saveConnections(board: Board){
@@ -251,7 +241,7 @@ export class BoardDataService implements OnInit{
       return true;
     })
     this.boards = newBoards;
-    localStorage.setItem('boards',JSON.stringify(newBoards));
+    this.es.saveInDevice(JSON.stringify(this.boards));
   }
 
   editBoardName(id: string, name: string) {

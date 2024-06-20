@@ -15,6 +15,7 @@ import { IconService } from '@shared-services/icon/icon.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CookiesService } from '@core-services/cookies/cookies.service';
 import { ElectronService } from '@core-services/electron/electron.service';
+import { SearchBarService } from '../../services/search-bar/search-bar.service';
 
 
 @Component({
@@ -40,17 +41,20 @@ export class AccountComponent{
     cookieService: CookieService,
     cookiesService: CookiesService,
     boardData: BoardDataService,
+    searchBar: SearchBarService,
     protected es: ElectronService
   ) {
 
     let fetchedBoards = boardData.boards;
     boardData.boards=[]
-    
+
     this.es.getInDevice()
     .then((res)=>{
       fetchedBoards = JSON.parse(res);
 
+      console.log("Fetched Boards:",fetchedBoards)
       boardData.boards = fetchedBoards
+      searchBar.filter('');
     })
 
     .catch((err)=>{

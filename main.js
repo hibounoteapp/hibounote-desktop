@@ -31,7 +31,8 @@ function createWindow () {
 }
 
 ipcMain.on('saveBoards',(event, jsonValue)=>{
-  fs.writeFile("c://Gustavo/fileExample.json",jsonValue,(err)=>{
+  fs.writeFile(`${__dirname}/data/boards.json`,jsonValue,(err)=>{
+    console.log(jsonValue)
     if(!err) {
       console.log('File written');
       return;
@@ -43,9 +44,8 @@ ipcMain.on('saveBoards',(event, jsonValue)=>{
 
 function readFiles() {
   return new Promise((resolve, reject) => {
-    fs.readFile("c://Gustavo/fileExample.json",'utf8',(err, data)=>{
+    fs.readFile(`${__dirname}/data/boards.json`,'utf8',(err, data)=>{
       if(!err) {
-        console.log("DATA: ",data);
         resolve(data);
       }
       reject(err);
@@ -56,7 +56,6 @@ function readFiles() {
 ipcMain.handle('getBoards', async ()=>{
   return await readFiles()
   .then((data)=>{
-    console.log("DATA: ",data)
     return data;
   })
 

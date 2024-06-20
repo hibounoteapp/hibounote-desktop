@@ -9,8 +9,8 @@
     </div>
   </div>
   <ng-container *ngIf="boardData.boards.length !== 0; else emptyBoards">
-    <ng-container *ngIf="filteredBoards.length !== 0; else searchNotFound">
-      <div *ngFor="let item of filteredBoards;" class="board-card-container">
+    <ng-container *ngIf="searchBar.filteredBoards.length !== 0; else searchNotFound">
+      <div *ngFor="let item of searchBar.filteredBoards;" class="board-card-container">
         <board-container-card
         [item]="item"
         (editBoard)="editBoard($event,item.id)"></board-container-card>
