@@ -58,6 +58,7 @@ export class AccountComponent{
     })
 
     .catch((err)=>{
+      console.log('ERROR: ',err)
       boardData.boards = []
     })
 
