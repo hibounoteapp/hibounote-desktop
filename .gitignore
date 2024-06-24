@@ -1,7 +1,10 @@
 # Builded file for tests
 Hibounote-win32-x64
 
-# Compiled output
+# Data storage
+data/boards.json
+
+# Compiled output 
 /dist
 /tmp
 /out-tsc
