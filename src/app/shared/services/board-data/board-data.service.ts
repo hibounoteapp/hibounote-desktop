@@ -128,7 +128,7 @@ export class BoardDataService implements OnInit{
       this.saveNodes(board);
       board.zoomScale = this.boardService.panzoom.getScale();
 
-      this.es.saveInDevice(JSON.stringify(this.boards));
+      this.es.saveInDevice(JSON.stringify(board));
     }
 
   }
@@ -241,7 +241,9 @@ export class BoardDataService implements OnInit{
       return true;
     })
     this.boards = newBoards;
-    this.es.saveInDevice(JSON.stringify(this.boards));
+    
+    //? Delete file in fs file
+    // this.es.saveInDevice(JSON.stringify(this.boards));
   }
 
   editBoardName(id: string, name: string) {

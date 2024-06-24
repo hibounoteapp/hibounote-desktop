@@ -1,7 +1,7 @@
 const electron = require('electron')
 const { ipcMain } = require('electron/main')
 const fs = require('fs')
-const { data } = require('jquery')
+const os = require('os')
 const path = require('path')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
@@ -30,30 +30,53 @@ function createWindow () {
   })
 }
 
-ipcMain.on('saveBoards',(event, jsonValue)=>{
-  fs.writeFile(`${__dirname}/data/boards.json`,jsonValue,(err)=>{
-    console.log(jsonValue)
-    if(!err) {
-      console.log('File written');
-      return;
-    }
+ipcMain.on('saveBoard',(event, jsonValue)=>{
+  const boardId = JSON.parse(jsonValue).id;
+  const boardName = JSON.parse(jsonValue).name;
 
-    console.log(err);
+  if(!fs.existsSync(`${os.homedir()}/hibounote/data`)) {
+    console.log("Dont exist")
+    fs.mkdirSync(path.join(os.homedir(),'hibounote'),(err)=>{
+      if(err) {
+        console.log(err)
+        return;
+      }
+      console.log('hibounote dir created')
+    })
+
+    fs.mkdirSync(path.join(os.homedir(),'hibounote','data'),(err)=>{
+      if(err) {
+        console.log(err)
+        return;
+      }
+      console.log('data dir created')
+    })
+  }
+
+
+  fs.writeFileSync(`${os.homedir()}/hibounote/data/board-${boardId.substring(0,8)}.json`,jsonValue,(err)=>{
+    if(err) {console.log(err)}
   })
 })
 
 function readFiles() {
   return new Promise((resolve, reject) => {
-    fs.readFile(`${__dirname}/data/boards.json`,'utf8',(err, data)=>{
-      if(!err) {
-        resolve(data);
+
+    fs.readdir(path.join(os.homedir(),'hibounote','data'),
+      (err,files)=>{
+        let boards = [];
+        files.forEach(file=>{
+          const data = fs.readFileSync(path.join(os.homedir(),'hibounote','data',file),{encoding:'utf-8'})
+          boards.push(JSON.parse(data));
+        })
+        resolve(JSON.stringify(boards));
       }
-      reject(err);
-    })
+    )
   })
 }
 
 ipcMain.handle('getBoards', async ()=>{
+  if(!fs.existsSync(`${os.homedir()}/hibounote/data`)) return;
   return await readFiles()
   .then((data)=>{
     return data;
