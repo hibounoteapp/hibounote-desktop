@@ -89,4 +89,12 @@ ipcMain.handle('getBoards', async ()=>{
 
 })
 
+ipcMain.on('deleteBoard',(event, id)=>{
+  const boardId = id.substring(0,8)
+  console.log(boardId)
+  if(fs.existsSync(path.join(os.homedir(),'hibounote','data',`board-${boardId}.json`))) {
+    fs.unlinkSync(path.join(os.homedir(),'hibounote','data',`board-${boardId}.json`))
+  }
+})
+
 app.on('ready', createWindow)

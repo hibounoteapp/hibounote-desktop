@@ -241,9 +241,8 @@ export class BoardDataService implements OnInit{
       return true;
     })
     this.boards = newBoards;
-    
-    //? Delete file in fs file
-    // this.es.saveInDevice(JSON.stringify(this.boards));
+
+    this.es.deleteBoard(id);
   }
 
   editBoardName(id: string, name: string) {

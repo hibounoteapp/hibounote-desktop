@@ -6,17 +6,20 @@ providedIn: 'root'
 })
 export class ElectronService {
 
+  electron = (window as any).electron;
   constructor(protected boardData: BoardDataService) { }
 
   saveInDevice(value: string) {
     console.log('SAVING BOARDS!')
-    const electron = (window as any).electron;
-    electron.saveInDevice(value)
+    this.electron.saveInDevice(value)
   }
 
   async getInDevice():Promise<string> {
-    const electron = (window as any).electron;
-    const data = await electron.getInDevice();
+    const data = await this.electron.getInDevice();
     return data;
+  }
+
+  deleteBoard(id: string) {
+    this.electron.deleteBoard(id);
   }
 }
