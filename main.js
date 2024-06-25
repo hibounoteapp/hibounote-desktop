@@ -13,7 +13,7 @@ function createWindow () {
 
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+  height: 600,
     minHeight: 500,
     minWidth: 790,
     webPreferences:{
@@ -22,6 +22,7 @@ function createWindow () {
       preload: path.resolve(__dirname,"preload.js")
     }
   })
+  mainWindow.menuBarVisible = false; //? To access dev tools and other config in menu, set to true
 
   mainWindow.loadFile(`dist/hibounote/browser/index.html`)
 
@@ -32,7 +33,6 @@ function createWindow () {
 
 ipcMain.on('saveBoard',(event, jsonValue)=>{
   const boardId = JSON.parse(jsonValue).id;
-  const boardName = JSON.parse(jsonValue).name;
 
   if(!fs.existsSync(`${os.homedir()}/hibounote/data`)) {
     console.log("Dont exist")
