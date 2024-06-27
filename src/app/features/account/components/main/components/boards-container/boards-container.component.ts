@@ -55,6 +55,9 @@ export class BoardsContainerComponent {
   }
 
   setSearch(event: Event) {
+    if(event.target instanceof HTMLInputElement) {
+      this.input = event.target.value;
+    }
     this.searchBar.setSearch(event,this.input)
   }
 }

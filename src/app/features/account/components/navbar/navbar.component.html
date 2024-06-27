@@ -1,26 +1,26 @@
-<nav>
-  <div id="desktop-port">
-    <div class="flex flex-row items-center">
-      <button (click)="openLink('https://hibounote.netlify.app')"><img src="assets/logo.svg" alt="logoHibounote" id="logo" matTooltip="Go to web page"></button>
-      <aside class="ms-4 font-bold">Hibounote</aside>
+<nav class="bg-background-base-50 border-b-[1px] border-b-background-400 shadow">
 
-    </div>
-    <div class="flex flex-row items-center">
-      <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
-        <img src="assets/icons/info-outline.svg" style="width: 30px; height: 30px;" alt="info" matTooltip="See tutorials">
-      </a>
-    </div>
+  <div class="flex flex-row items-center">
+    <a [routerLink]="['/tutorial']" class="link">
+      Tutorials
+    </a>
+    <button (click)="openLink('https://hibounote.netlify.app')" class="link">
+      Docs
+    </button>
+    <button (click)="openLink('https://hibounote.netlify.app/blog')"  class="link">
+      Blog
+    </button>
+    <button (click)="openLink('https://github.com/hibounoteapp/hibounote')"  class="link">
+      Contribute!
+    </button>
   </div>
 
-  <div id="mobile-port">
-    <a [routerLink]="['/']"><img src="assets/logo.svg" alt="logoHibounote" id="logo"></a>
-    <div class="flex flex-row items-center">
-      <a [routerLink]="['/tutorial']" matTooltip="See tutorials" class="flex justify-center items-center">
-        <img src="assets/icons/info-outline.svg" alt="info" id="logo" matTooltip="Go to web page">
-      </a>
-      <button class="w-14">
-        <img src="https://placehold.co/128x128?text=User" alt="" class="rounded-full w-full" matTooltip="🚧 In progress!">
-      </button>
-    </div>
+  <div class="flex flex-row items-center">
+    <button (click)="openLink('https://hibounote.netlify.app/about')" matTooltip="About" class="flex justify-center items-center">
+      <img src="assets/icons/info-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;" class="me-6">
+    </button>
+    <button class="w-14">
+      <img src="assets/user_placeholder.svg" alt="" class="rounded-full w-[80%]" matTooltip="🚧 In progress!">
+    </button>
   </div>
 </nav>

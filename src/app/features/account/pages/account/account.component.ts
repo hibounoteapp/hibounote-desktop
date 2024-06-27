@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { CookiesService } from '@core-services/cookies/cookies.service';
 import { ElectronService } from '@core-services/electron/electron.service';
 import { SearchBarService } from '../../services/search-bar/search-bar.service';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 
 @Component({
@@ -30,6 +31,7 @@ import { SearchBarService } from '../../services/search-bar/search-bar.service';
     FooterComponent,
     NavbarComponent,
     MainComponent,
+    SidebarComponent,
     EditBoardModalComponent,
   ],
   templateUrl: './account.component.html',

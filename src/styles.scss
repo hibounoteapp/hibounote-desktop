@@ -196,3 +196,21 @@ html, body { height: 100%; }
   }
 }
 
+//? Icon coloring
+
+.icon-white {
+  filter: invert(100%)
+}
+
+.icon-background-400 {
+  filter: brightness(0) saturate(100%) invert(78%) sepia(13%) saturate(286%) hue-rotate(207deg) brightness(81%) contrast(82%);
+}
+
+//?
+
+.bg-blob-nude {
+  background-image: url('assets/images/bg-blob-single-nude.svg');
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

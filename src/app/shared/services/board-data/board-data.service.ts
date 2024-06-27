@@ -46,19 +46,31 @@ export class BoardDataService implements OnInit{
     this.boards = boards;
   }
 
-  createBoard() {
-
+  createBoard(board?: Board) {
     const id = uuid();
 
-    this.boards.push({
-      id,
-      dateCreated: new Date(),
-      name: `Untitled board`,
-      connetions: [],
-      elements: [],
-      groups: [],
-      zoomScale: 1,
-    })
+    if(board) {
+      this.boards.push({
+        id,
+        dateCreated: board.dateCreated,
+        name: board.name,
+        connetions: board.connetions,
+        elements: board.elements,
+        groups: board.groups,
+        zoomScale: 1,
+      })
+    } else {
+      this.boards.push({
+        id,
+        dateCreated: new Date(),
+        name: `Untitled board`,
+        connetions: [],
+        elements: [],
+        groups: [],
+        zoomScale: 1,
+      })
+
+    }
 
     this.router.navigate(['/board'], {
       queryParams: {

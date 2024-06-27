@@ -1,0 +1,56 @@
+<div class="sidebar-container">
+  <div class="flex flex-row items-center my-2" id="logo-container">
+    <a [routerLink]="['/']"><img src="assets/logo.svg" alt="logoHibounote" id="logo"></a>
+    <aside class="ms-2 font-semibold" id="logo-label">Hibounote</aside>
+  </div>
+  <div id='utilLinks'>
+    <button class="link" (click)="settingsModal()">
+      <img src="assets/icons/settings-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;">
+      <p>Settings</p>
+    </button>
+    <button class="link" (click)="uploadFile()">
+      <img src="assets/icons/upload-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;">
+      <p>Import board</p>
+      <input type="file" class="hidden" id="importJSON" accept=".json" (change)="createFromImport($event)">
+    </button>
+    <button class="link" matTooltip="🚧In progress">
+      <img src="assets/icons/template-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;" class="icon-background-400">
+      <p class="text-background-500">Templates</p>
+    </button>
+  </div>
+  <div id="tags-fav-container">
+    <div id="favorites">
+      <div class="iconText mb-2">
+        <p class="label self-start me-1">Favorites</p>
+        <button class="flex items-center justify-center">
+          <img src="assets/icons/add-outline.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
+        </button>
+      </div>
+      <!-- <ng-container *ngIf="expression;else templateName">
+        <ng-container *ngFor="let item of list">
+
+        </ng-container>
+      </ng-container> -->
+      <div class="emptyMessage">
+        <p class="text-center">There is no<br>favorite boards.</p>
+      </div>
+    </div>
+    <hr class="w-[90%] border-background-400">
+    <div id="tags">
+      <div class="iconText mb-2">
+        <p class="label self-start me-1">Tags</p>
+        <button class="flex items-center justify-center">
+          <img src="assets/icons/add-outline.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
+        </button>
+      </div>
+      <!-- <ng-container *ngIf="expression;else templateName">
+        <ng-container *ngFor="let item of list">
+
+        </ng-container>
+      </ng-container> -->
+      <div class="emptyMessage">
+        <p class="text-center">There is no<br>tags created.</p>
+      </div>
+    </div>
+  </div>
+</div>
