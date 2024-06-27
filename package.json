@@ -1,13 +1,33 @@
 {
   "name": "hibounote",
-  "version": "0.0.0",
+  "productName":"hibounote",
+  "version": "1.0.0",
   "main": "main.js",
+  "author": "gfsilva",
+  "description": "A free alternative to organize your projects into visual boards.",
   "scripts": {
     "ng": "ng",
-    "start": "electron .",
-    "build": "ng build && electron .",
+    "start": "ng build && electron .",
+    "build": "electron-builder",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
+  },
+  "build": {
+    "appId": "com.hibounoteapp.hibounote-desktop",
+    "win": {
+      "target":[
+        "nsis"
+      ],
+      "icon":"favicon.ico"
+    },
+    "nsis":{
+      "oneClick":false,
+      "installerIcon":"favicon.ico",
+      "uninstallerIcon":"favicon.ico",
+      "uninstallDisplayName":"hibounote-uninstaller",
+      "license":"LICENSE",
+      "allowToChangeInstallationDirectory":true
+    }
   },
   "private": true,
   "dependencies": {
@@ -26,7 +46,6 @@
     "@jsplumb/browser-ui": "^6.2.10",
     "@panzoom/panzoom": "^4.5.1",
     "custom-element-register": "^1.0.10",
-    "electron": "^31.0.1",
     "electron-updater": "^6.2.1",
     "jquery": "^3.7.1",
     "ngx-cookie-service": "^18.0.0",
@@ -41,6 +60,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/jquery": "^3.5.30",
     "autoprefixer": "^10.4.19",
+    "electron": "^31.0.2",
     "electron-builder": "^24.13.3",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

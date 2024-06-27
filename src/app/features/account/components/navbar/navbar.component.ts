@@ -3,6 +3,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { ElectronService } from '@core-services/electron/electron.service';
 import { IconService } from '@shared-services/icon/icon.service';
 
 @Component({
@@ -19,5 +20,10 @@ import { IconService } from '@shared-services/icon/icon.service';
 export class NavbarComponent {
   constructor(
     iconService: IconService,
+    protected electron: ElectronService
   ){}
+
+  openLink(link: string) {
+    this.electron.openLink(link);
+  }
 }

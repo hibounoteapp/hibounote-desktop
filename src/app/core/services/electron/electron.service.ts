@@ -22,4 +22,8 @@ export class ElectronService {
   deleteBoard(id: string) {
     this.electron.deleteBoard(id);
   }
+
+  openLink(link: string) {
+    this.electron.openLink(link);
+  }
 }

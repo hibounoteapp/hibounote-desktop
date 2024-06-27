@@ -22,14 +22,18 @@ function createWindow () {
       preload: path.resolve(__dirname,"preload.js")
     }
   })
-  mainWindow.menuBarVisible = false; //? To access dev tools and other config in menu, set to true
 
-  mainWindow.loadFile(`dist/hibounote/browser/index.html`)
+  mainWindow.menuBarVisible = true; //? To access dev tools and other config in menu, set to true
+  mainWindow.loadFile(`${__dirname}/dist/hibounote/browser/index.html`)
 
   mainWindow.on('closed', function () {
     mainWindow = null
   })
 }
+
+ipcMain.on('openLink',(event,link) => {
+  electron.shell.openExternal(link);
+})
 
 ipcMain.on('saveBoard',(event, jsonValue)=>{
   const boardId = JSON.parse(jsonValue).id;
