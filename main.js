@@ -23,7 +23,7 @@ function createWindow () {
     }
   })
 
-  mainWindow.menuBarVisible = true; //? To access dev tools and other config in menu, set to true
+  mainWindow.menuBarVisible = false; //? To access dev tools and other config in menu, set to true
   mainWindow.loadFile(`${__dirname}/dist/hibounote/browser/index.html`)
 
   mainWindow.on('closed', function () {

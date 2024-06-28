@@ -19,7 +19,7 @@ export class BoardDataService implements OnInit{
 
   _boards: Board[] = [];
   activeId!: string;
-
+  activeBoard!: Board;
 
   public get boards() : Board[] {
     return this._boards;
@@ -41,6 +41,11 @@ export class BoardDataService implements OnInit{
     this.activatedRoute.queryParamMap.subscribe((p)=>{
       this.activeId = p.get("id") ?? '';
     })
+    const selectedBoard = this.boards.find(e=>e.id===this.activeId);
+
+      if(selectedBoard) {
+        this.activeBoard = selectedBoard;
+      }
   }
 
   loadBoards(boards: Board[]) {
@@ -83,6 +88,7 @@ export class BoardDataService implements OnInit{
     }).then(()=>{
       try {
         this.nodeService.clearAll();
+        this.saveData()
       } catch (error) {}
     })
 

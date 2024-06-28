@@ -75,6 +75,20 @@ export class BoardComponent implements AfterViewInit, OnInit{
       }
     }
 
+  @HostListener('window:unload', ['$event'])
+    unloadHandler(event: Event) {
+        this.PostCall();
+    }
+
+  @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHander(event: Event) {
+        this.boardData.saveData()
+        return true;
+    }
+
+  PostCall() {
+        console.log('PostCall');
+    }
 
   editNode(attribute: string, value: string) {
     if(!this.nodeService.activeNode) return;

@@ -32,7 +32,7 @@
             <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="flex-grow text-start">{{item.name}}</a>
             <button class="flex justify-center items-center h-full" [mat-menu-trigger-for]="menu">
               <mat-icon svgIcon="more" style="height: 18px; width: 18px;"></mat-icon>
-              <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-[0.6rem] !shadow-md" xPosition="before">
+              <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-[0.6rem] !shadow-md" xPosition="after">
                 <button class="menuButton !flex !items-center !justify-start" (click)="editBoard(item.id)">
                   <mat-icon style="transform: scale(0.7);" svgIcon="edit" class="me-2"></mat-icon>
                   <span class="font-normal text-sm">Rename</span>
