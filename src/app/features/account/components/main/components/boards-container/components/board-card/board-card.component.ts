@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Route, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Board } from '@custom-interfaces/board';
 import { EditBoardModalComponent } from '../../../../../edit-board-modal/edit-board-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
 import { IconService } from '@shared-services/icon/icon.service';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { DeleteConfirmationComponent } from '../../../../../edit-board-modal/components/delete-confirmation/delete-confirmation.component';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'board-container-card',
@@ -26,9 +27,15 @@ export class BoardCardComponent {
     private dialog: MatDialog,
     private boardData: BoardDataService,
     public iconService: IconService,
-    protected router: Router
+    protected renderer: Renderer2,
+    protected router: Router,
+    public userData: UserDataService
   ) {
 
+  }
+
+  toggleFavorite() {
+    this.boardData.toggleFavorite(this.item.id);
   }
 
   confirmDelete(id: string) {
@@ -52,10 +59,6 @@ export class BoardCardComponent {
       queryParams: {id: this.item.id}
     })
 
-  }
-
-  favBoard(event: Event) {
-    console.log('FAV',event)
   }
 
 

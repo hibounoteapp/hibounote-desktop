@@ -20,37 +20,62 @@
   </div>
   <div id="tags-fav-container">
     <div id="favorites">
-      <div class="iconText mb-2">
+      <div class="iconText mb-2" >
         <p class="label self-start me-1">Favorites</p>
-        <button class="flex items-center justify-center">
+        <button class="flex items-center justify-center" (click)="createFavorite()">
           <img src="assets/icons/add-outline.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
         </button>
       </div>
-      <!-- <ng-container *ngIf="expression;else templateName">
-        <ng-container *ngFor="let item of list">
-
+      <ng-container *ngIf="favBoards.length > 0; else emptyFavs">
+        <ng-container *ngFor="let item of favBoards">
+          <div class="favBoardItem">
+            <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="flex-grow text-start">{{item.name}}</a>
+            <button class="flex justify-center items-center h-full" [mat-menu-trigger-for]="menu">
+              <!-- <mat-icon svgIcon="more" style="height: 18px; width: 18px;"></mat-icon> -->
+              <img src="assets/icons/more-horizontal.svg" alt="note" class="my-1" draggable="false" style="width: 14px; height: 14px;">
+              <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-[0.6rem] !shadow-md" xPosition="after">
+                <button class="menuButton !flex !items-center !justify-start" (click)="editBoard(item.id)">
+                  <!-- <mat-icon style="transform: scale(0.7);" svgIcon="edit" class="me-2"></mat-icon> -->
+                  <img src="assets/icons/edit-outline.svg" class="me-2" alt="note" draggable="false" style="width: 18px; height: 18px;">
+                  <span class="font-normal text-sm">Rename</span>
+                </button>
+                <button class="menuButton !flex !items-center !justify-start" (click)="toggleFavorite(item.id)">
+                  <!-- <mat-icon style="transform: scale(0.7);" svgIcon="star" class="me-2"></mat-icon> -->
+                  <img src="assets/icons/star.svg" class="me-2" alt="note" draggable="false" style="width: 18px; height: 18px;">
+                  <span class="font-normal text-sm">{{item.favorite ? 'Remove from favorites' : 'Add to favorites'}}</span>
+                </button>
+                <button class="menuButton !flex !items-center !justify-start" (click)="confirmDelete(item.id)">
+                  <!-- <mat-icon style="transform: scale(0.7);" svgIcon="trash" class="me-2 icon-warn"></mat-icon> -->
+                  <img src="assets/icons/trash-outline.svg" class="me-2 icon-warn" alt="note" draggable="false" style="width: 14px; height: 14px;">
+                  <span class="text-alert-base-900 font-normal text-sm">Delete</span>
+                </button>
+              </mat-menu>
+            </button>
+          </div>
         </ng-container>
-      </ng-container> -->
-      <div class="emptyMessage">
-        <p class="text-center">There is no<br>favorite boards.</p>
-      </div>
+      </ng-container>
+      <ng-template #emptyFavs>
+        <div class="emptyMessage">
+          <p class="text-center">There is no<br>favorite boards.</p>
+        </div>
+      </ng-template>
     </div>
     <hr class="w-[90%] border-background-400">
-    <div id="tags">
+    <!-- <div id="tags">
       <div class="iconText mb-2">
         <p class="label self-start me-1">Tags</p>
         <button class="flex items-center justify-center">
           <img src="assets/icons/add-outline.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
         </button>
       </div>
-      <!-- <ng-container *ngIf="expression;else templateName">
+      <ng-container *ngIf="expression;else templateName">
         <ng-container *ngFor="let item of list">
 
         </ng-container>
-      </ng-container> -->
+      </ng-container>
       <div class="emptyMessage">
         <p class="text-center">There is no<br>tags created.</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

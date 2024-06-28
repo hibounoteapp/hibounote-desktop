@@ -15,4 +15,5 @@ export interface Board {
     }[]
   }[],
   zoomScale: number,
+  favorite?: boolean,
 }

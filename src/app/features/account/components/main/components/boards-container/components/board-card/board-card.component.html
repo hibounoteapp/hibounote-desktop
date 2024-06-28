@@ -1,11 +1,11 @@
 <div class="board-container" id='{{item.id}}'>
   <button class="flex-grow justify-start items-start p-2" (click)="enterBoard($event)">
   <div class="flex flex-row justify-start">
-    <img src="https://placehold.co/128x128?text=✨" alt="board emoji" class="w-10 rounded-[50%]">
+    <!-- <img src="https://placehold.co/128x128?text=✨" alt="board emoji" class="w-10 rounded-[50%]"> -->
     <div class="flex flex-col justify-center ms-3">
       <div class="flex flex-row items-center">
         <p>{{item.name}}</p>
-        <!-- <img src="assets/icons/star.svg" alt="note" draggable="false" style="width: 18px; height: 18px;"> -->
+        <img src="assets/icons/star.svg" alt="note" draggable="false" style="width: 18px; height: 18px;"  [style.display]="item.favorite ? 'flex':'none'" class="ms-1">
       </div>
       <p>Created at: {{item.dateCreated | date}}</p>
     </div>
@@ -19,9 +19,9 @@
         <img src="assets/icons/edit-outline.svg" class="me-2" alt="note" draggable="false" style="width: 14px; height: 14px;">
         <span class="font-normal">Rename</span>
       </button>
-      <button class="menuButton !flex !items-center !justify-start">
+      <button class="menuButton !flex !items-center !justify-start" (click)="toggleFavorite()">
         <img src="assets/icons/star.svg" alt="note" draggable="false" class="me-2" style="width: 14px; height: 14px;">
-        <span class="font-normal">Add to favorites</span>
+        <span class="font-normal">{{item.favorite ? 'Remove from favorites' : 'Add to favorites'}}</span>
       </button>
       <!-- <button mat-menu-item [matMenuTriggerFor]="bgColor">
         <mat-icon style="transform: scale(0.85);" svgIcon="color_fill"></mat-icon>

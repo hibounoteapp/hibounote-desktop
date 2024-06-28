@@ -10,6 +10,7 @@ import kanban from '@core-board-templates/kanban';
 import { TemplateBoard } from '../../../core/models/types/template-board';
 import sprintRetro from '@core-board-templates/sprint-retrospective';
 import { ElectronService } from '@core-services/electron/electron.service';
+import useCase from '@core-board-templates/usecase';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,8 @@ export class BoardDataService implements OnInit{
         elements: board.elements,
         groups: board.groups,
         zoomScale: 1,
+        favorite: board.favorite,
+
       })
     } else {
       this.boards.push({
@@ -68,6 +71,7 @@ export class BoardDataService implements OnInit{
         elements: [],
         groups: [],
         zoomScale: 1,
+        favorite: false,
       })
 
     }
@@ -87,7 +91,8 @@ export class BoardDataService implements OnInit{
   createBoardFromTemplate(
     template:
     "sprint-retro" |
-    "kanban"
+    "kanban" |
+    "useCase"
   ) {
 
     let templateBoard: TemplateBoard = kanban;
@@ -100,6 +105,11 @@ export class BoardDataService implements OnInit{
       case "kanban":
         templateBoard = kanban;
         break;
+
+      case "useCase":
+        templateBoard = useCase;
+        break;
+
       default:
 
         break;
@@ -258,7 +268,26 @@ export class BoardDataService implements OnInit{
     this.es.deleteBoard(id);
   }
 
+  toggleFavorite(id: string) {
+
+    let newBoards: Board[] = this.boards.map(element=>{
+      if(element.id === id) {
+        if(element.favorite) {
+          element.favorite = !element.favorite;
+        } else {
+          element.favorite = true;
+        }
+        console.log(JSON.stringify(element))
+        this.es.saveInDevice(JSON.stringify(element));
+      }
+      return element
+    })
+
+    this.boards = newBoards;
+  }
+
   editBoardName(id: string, name: string) {
+    let selectedBoard = this.boards.find(e=>e.id===id);
     let newBoards: Board[] = this.boards.map((board: Board)=>{
       if(board.id === id) {
         return {
@@ -269,6 +298,8 @@ export class BoardDataService implements OnInit{
       return board
     })
     this.boards = newBoards;
+
+    this.es.saveInDevice(JSON.stringify(selectedBoard));
   }
 
   ngOnInit(): void {

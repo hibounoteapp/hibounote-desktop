@@ -8,6 +8,13 @@ input {
   }
 }
 
+#nameInput {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width:300px; /* some width */
+}
+
 button.btn-shadow {
   @apply shadow px-2 py-1 rounded flex justify-center items-center;
 }

@@ -42,7 +42,7 @@ export class AccountComponent{
   constructor(
     cookieService: CookieService,
     cookiesService: CookiesService,
-    boardData: BoardDataService,
+    public boardData: BoardDataService,
     searchBar: SearchBarService,
     protected es: ElectronService
   ) {
