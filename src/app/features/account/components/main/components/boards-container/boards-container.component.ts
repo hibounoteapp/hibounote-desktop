@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
@@ -17,8 +17,9 @@ import { SearchBarService } from '../../../../services/search-bar/search-bar.ser
   templateUrl: './boards-container.component.html',
   styleUrl: './boards-container.component.scss'
 })
-export class BoardsContainerComponent {
+export class BoardsContainerComponent implements OnChanges{
   input: string = '';
+  @Input('boardsData') boardsData!: Board[]; //? Using 'Input' to track everytime boards array changes
 
   constructor(
     public boardData: BoardDataService,
@@ -59,5 +60,9 @@ export class BoardsContainerComponent {
       this.input = event.target.value;
     }
     this.searchBar.setSearch(event,this.input)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.searchBar.filteredBoards = this.boardsData;
   }
 }

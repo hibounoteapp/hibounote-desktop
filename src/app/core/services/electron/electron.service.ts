@@ -20,6 +20,7 @@ export class ElectronService {
   }
 
   deleteBoard(id: string) {
+    console.log('DELETE BOARD (electron service)')
     this.electron.deleteBoard(id);
   }
 

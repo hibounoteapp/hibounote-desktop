@@ -206,7 +206,20 @@ html, body { height: 100%; }
   filter: brightness(0) saturate(100%) invert(78%) sepia(13%) saturate(286%) hue-rotate(207deg) brightness(81%) contrast(82%);
 }
 
+.icon-warn {
+  filter: brightness(0) saturate(100%) invert(11%) sepia(92%) saturate(4605%) hue-rotate(358deg) brightness(106%) contrast(117%);
+}
+
+
 //?
+
+.menuButton { //shared navbar menu button
+  @apply block w-full my-1 p-2 text-start font-semibold rounded transition-all;
+
+  &:hover {
+    @apply bg-background-300 transition-all;
+  }
+}
 
 .bg-blob-nude {
   background-image: url('assets/images/bg-blob-single-nude.svg');

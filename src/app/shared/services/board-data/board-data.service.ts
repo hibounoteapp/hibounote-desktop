@@ -246,6 +246,7 @@ export class BoardDataService implements OnInit{
   }
 
   deleteBoard(id: string) {
+    console.log('DELETE BOARD (board data)')
     let newBoards: Board[] = this.boards.filter((board: Board)=>{
       if(board.id === id) {
         return false;

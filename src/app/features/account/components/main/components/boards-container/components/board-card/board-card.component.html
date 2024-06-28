@@ -1,19 +1,37 @@
 <div class="board-container" id='{{item.id}}'>
-  <div class="flex flex-row justify-between">
+  <button class="flex-grow justify-start items-start p-2" (click)="enterBoard($event)">
+  <div class="flex flex-row justify-start">
     <img src="https://placehold.co/128x128?text=✨" alt="board emoji" class="w-10 rounded-[50%]">
     <div class="flex flex-col justify-center ms-3">
       <div class="flex flex-row items-center">
         <p>{{item.name}}</p>
-        <button class="flex items-center justify-center ms-2">
-          <img src="assets/icons/star.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
-        </button>
+        <!-- <img src="assets/icons/star.svg" alt="note" draggable="false" style="width: 18px; height: 18px;"> -->
       </div>
       <p>Created at: {{item.dateCreated | date}}</p>
     </div>
   </div>
+  </button>
 
-  <button class="flex items-center justify-center me-2">
+  <button class="flex items-center justify-center me-4" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" id="moreButton">
     <img src="assets/icons/more-horizontal.svg" alt="note" draggable="false" style="width: 25px; height: 25px;">
+    <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-sm !shadow-md" xPosition="before">
+      <button class="menuButton !flex !items-center !justify-start" (click)="editBoard.emit($event)">
+        <img src="assets/icons/edit-outline.svg" class="me-2" alt="note" draggable="false" style="width: 14px; height: 14px;">
+        <span class="font-normal">Rename</span>
+      </button>
+      <button class="menuButton !flex !items-center !justify-start">
+        <img src="assets/icons/star.svg" alt="note" draggable="false" class="me-2" style="width: 14px; height: 14px;">
+        <span class="font-normal">Add to favorites</span>
+      </button>
+      <!-- <button mat-menu-item [matMenuTriggerFor]="bgColor">
+        <mat-icon style="transform: scale(0.85);" svgIcon="color_fill"></mat-icon>
+        <span>Background Color</span>
+      </button> -->
+      <button class="menuButton !flex !items-center !justify-start" (click)="confirmDelete(item.id)">
+        <img src="assets/icons/trash-outline.svg" class="me-2 icon-warn" alt="note" draggable="false" style="width: 14px; height: 14px;">
+        <span class="text-alert-base-900 font-normal">Delete</span>
+      </button>
+    </mat-menu>
   </button>
 
   <!-- <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="h-full flex-grow rounded  flex-row-center justify-between px-2 py-2">

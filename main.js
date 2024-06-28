@@ -94,6 +94,7 @@ ipcMain.handle('getBoards', async ()=>{
 })
 
 ipcMain.on('deleteBoard',(event, id)=>{
+  console.log('DELETE BOARD (board data)')
   const boardId = id.substring(0,8)
   console.log(boardId)
   if(fs.existsSync(path.join(os.homedir(),'hibounote','data',`board-${boardId}.json`))) {
