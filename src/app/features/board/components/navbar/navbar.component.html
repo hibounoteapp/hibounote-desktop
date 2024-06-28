@@ -1,20 +1,20 @@
 <nav>
   <div class="flex flex-row items-center justify-between">
     <button class="me-4 flex items-center justify-center" [matMenuTriggerFor]="boardMenu">
-      <img src="assets/icons/menu-outline.svg" draggable="false" style="width: 30px; height: 30px;" alt="menu">
+      <mat-icon svgIcon="menu"></mat-icon>
     </button>
     <input type="text" class="px-2 outline-none bg-transparent text-lg" id="nameInput" [value]="boardData.getActiveBoard()?.name"
     (blur)="changeName($event)">
 
   </div>
-  <button (click)="saveData()" class="btn-shadow" id="saveToFileSystem">
-    <img src="assets/icons/person-outline.svg" alt="note" draggable="false" style="width: 25px; height: 25px;">
+  <button (click)="saveData()" class="btn-shadow">
+    <mat-icon svgIcon="person"></mat-icon>
   </button>
 
   <mat-menu #boardMenu="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
-    <button mat-menu-item [matMenuTriggerFor]="boardConfig" class="flex flex-row justify-center items-center">
-      <img src="assets/icons/clipboard-outline.svg" alt="note" draggable="false" style="width: 20px; height: 20px; display: inline;" >
-      <span class="ms-4">Board</span>
+    <button mat-menu-item [matMenuTriggerFor]="boardConfig">
+      <mat-icon style="transform: scale(0.85);" svgIcon="clipboard"></mat-icon>
+      <span>Board</span>
     </button>
     <!-- <button mat-menu-item>
       <mat-icon style="transform: scale(0.85);">grid_3x3</mat-icon>
@@ -30,16 +30,16 @@
 
   <mat-menu #boardConfig="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">
     <button mat-menu-item (click)="boardData.createBoard()">
-      <img src="assets/icons/add-outline.svg" draggable="false" alt="note" style="width: 20px; height: 20px; display: inline;" >
-      <span class="ms-4">New board</span>
+      <mat-icon style="transform: scale(0.85);" svgIcon="add"></mat-icon>
+      <span>New board</span>
     </button>
     <!-- <button mat-menu-item [matMenuTriggerFor]="bgColor">
       <mat-icon style="transform: scale(0.85);" svgIcon="color_fill"></mat-icon>
       <span>Background Color</span>
     </button> -->
     <button mat-menu-item (click)="deleteBoard()">
-      <img src="assets/icons/trash-outline.svg" draggable="false" alt="note" style="width: 20px; height: 20px; display: inline;" >
-      <span class="ms-4">Delete</span>
+      <mat-icon style="transform: scale(0.85);" svgIcon="trash"></mat-icon>
+      <span>Delete</span>
     </button>
   </mat-menu>
     <mat-menu #bgColor="matMenu" class="!bg-background-base-50 !text-sm !shadow-md">

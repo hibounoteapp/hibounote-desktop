@@ -5,25 +5,25 @@
   </div>
   <div id='utilLinks'>
     <button class="link" (click)="settingsModal()">
-      <img src="assets/icons/settings-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;">
+      <mat-icon svgIcon="settings"></mat-icon>
       <p>Settings</p>
     </button>
     <button class="link" (click)="uploadFile()">
-      <img src="assets/icons/upload-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;">
+      <mat-icon svgIcon="upload"></mat-icon>
       <p>Import board</p>
       <input type="file" class="hidden" id="importJSON" accept=".json" (change)="createFromImport($event)">
     </button>
-    <button class="link" matTooltip="🚧In progress">
-      <img src="assets/icons/template-outline.svg" alt="note" draggable="false" style="width: 22px; height: 22px;" class="icon-background-400">
+    <button class="link" matTooltip="🚧In progress.">
+      <mat-icon svgIcon="template" class="icon-background-400"></mat-icon>
       <p class="text-background-500">Templates</p>
     </button>
   </div>
   <div id="tags-fav-container">
     <div id="favorites">
-      <div class="iconText mb-2" >
+      <div class="iconText mb-2">
         <p class="label self-start me-1">Favorites</p>
         <button class="flex items-center justify-center" (click)="createFavorite()">
-          <img src="assets/icons/add-outline.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
+          <mat-icon svgIcon="add" style="scale: 0.8;"></mat-icon>
         </button>
       </div>
       <ng-container *ngIf="favBoards.length > 0; else emptyFavs">
@@ -31,22 +31,18 @@
           <div class="favBoardItem">
             <a [routerLink]="['/board']" [queryParams]="{id: item.id}" class="flex-grow text-start">{{item.name}}</a>
             <button class="flex justify-center items-center h-full" [mat-menu-trigger-for]="menu">
-              <!-- <mat-icon svgIcon="more" style="height: 18px; width: 18px;"></mat-icon> -->
-              <img src="assets/icons/more-horizontal.svg" alt="note" class="my-1" draggable="false" style="width: 14px; height: 14px;">
-              <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-[0.6rem] !shadow-md" xPosition="after">
+              <mat-icon svgIcon="more" style="height: 18px; width: 18px;"></mat-icon>
+              <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-[0.6rem] !shadow-md" xPosition="before">
                 <button class="menuButton !flex !items-center !justify-start" (click)="editBoard(item.id)">
-                  <!-- <mat-icon style="transform: scale(0.7);" svgIcon="edit" class="me-2"></mat-icon> -->
-                  <img src="assets/icons/edit-outline.svg" class="me-2" alt="note" draggable="false" style="width: 18px; height: 18px;">
+                  <mat-icon style="transform: scale(0.7);" svgIcon="edit" class="me-2"></mat-icon>
                   <span class="font-normal text-sm">Rename</span>
                 </button>
                 <button class="menuButton !flex !items-center !justify-start" (click)="toggleFavorite(item.id)">
-                  <!-- <mat-icon style="transform: scale(0.7);" svgIcon="star" class="me-2"></mat-icon> -->
-                  <img src="assets/icons/star.svg" class="me-2" alt="note" draggable="false" style="width: 18px; height: 18px;">
+                  <mat-icon style="transform: scale(0.7);" svgIcon="star" class="me-2"></mat-icon>
                   <span class="font-normal text-sm">{{item.favorite ? 'Remove from favorites' : 'Add to favorites'}}</span>
                 </button>
                 <button class="menuButton !flex !items-center !justify-start" (click)="confirmDelete(item.id)">
-                  <!-- <mat-icon style="transform: scale(0.7);" svgIcon="trash" class="me-2 icon-warn"></mat-icon> -->
-                  <img src="assets/icons/trash-outline.svg" class="me-2 icon-warn" alt="note" draggable="false" style="width: 14px; height: 14px;">
+                  <mat-icon style="transform: scale(0.7);" svgIcon="trash" class="me-2 icon-warn">delete</mat-icon>
                   <span class="text-alert-base-900 font-normal text-sm">Delete</span>
                 </button>
               </mat-menu>
@@ -64,18 +60,44 @@
     <!-- <div id="tags">
       <div class="iconText mb-2">
         <p class="label self-start me-1">Tags</p>
-        <button class="flex items-center justify-center">
-          <img src="assets/icons/add-outline.svg" alt="note" draggable="false" style="width: 18px; height: 18px;">
+        <button class="flex items-center justify-center" (click)="createTag()">
+          <mat-icon svgIcon="add" style="scale: 0.8;" ></mat-icon>
         </button>
       </div>
-      <ng-container *ngIf="expression;else templateName">
-        <ng-container *ngFor="let item of list">
+      <ng-container *ngIf="userData.tags.length != 0; else emptyTags">
+        <ng-container *ngFor="let item of userData.tags">
+          <div class="tagItem">
+            <button id="tagButton">
+              {{item.name}}
+            </button>
+            <button class="flex justify-center items-center h-full" id="more" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+              <mat-icon svgIcon="more" style="height: 18px; width: 18px;"></mat-icon>
+            </button>
+
+              <mat-menu #menu="matMenu" class="!bg-background-base-50 !text-sm !shadow-md !px-2" xPosition="after">
+                <button  class="menuButton !flex !items-center !justify-start" (click) = "openInputNameTag($event)" [matMenuTriggerFor]="rename" >
+                  <mat-icon style="transform: scale(0.7);" svgIcon="edit" class="me-2"></mat-icon>
+                  <span class="font-normal text-sm">Rename</span>
+                </button>
+                <button class="menuButton !flex !items-center !justify-start" (click)="deleteTag(item.id)">
+                  <mat-icon style="transform: scale(0.7);" svgIcon="trash" class="me-2 icon-warn">delete</mat-icon>
+                  <span class="text-alert-base-900 font-normal text-sm">Delete</span>
+                </button>
+              </mat-menu>
+
+              <mat-menu #rename="matMenu" xPosition="after" yPosition="above" >
+                <input class="outline-none p-1 mx-2 border-b-[1px] border-b-background-400" id="inputNameTag" type="text" (click) = "$event.stopPropagation()" [value]="item.name" (change)="editTag($event,item.id)" (keypress)="closeInputNameTag($event,menuTrigger,item.id)" (blur)="closeInputNameTag($event,menuTrigger,item.id)">
+              </mat-menu>
+
+          </div>
 
         </ng-container>
       </ng-container>
-      <div class="emptyMessage">
-        <p class="text-center">There is no<br>tags created.</p>
-      </div>
+      <ng-template #emptyTags>
+        <div class="emptyMessage">
+          <p class="text-center">There is no<br>tags created.</p>
+        </div>
+      </ng-template>
     </div> -->
   </div>
 </div>
