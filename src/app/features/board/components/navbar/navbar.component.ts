@@ -13,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../../../account/components/edit-board-modal/components/delete-confirmation/delete-confirmation.component';
 import { SettingsModalComponent } from '../../../account/components/sidebar/components/settings-modal/settings-modal.component';
 import { MatTooltip } from '@angular/material/tooltip';
+import {MatSnackBar} from '@angular/material/snack-bar'
+import download from '@util-functions/download';
 
 @Component({
   selector: 'navbar-component',
@@ -34,9 +36,34 @@ export class NavbarComponent {
     private router: Router,
     private iconService: IconService,
     private es: ElectronService,
-    protected dialog: MatDialog
+    protected dialog: MatDialog,
+    protected snackBar: MatSnackBar
   ) {
 
+  }
+
+  downloadBoard() {
+    const board = this.boardData.getActiveBoard()
+    if(board)
+      download(JSON.stringify(board),board.name,'application/json','json')
+  }
+
+  saveAndDuplicate() {
+    let board = this.boardData.getActiveBoard()
+    if(!board) return;
+    board.name = `${board.name} duplicate`
+    this.boardData.saveData();
+    this.boardData.createBoard(board,false);
+    this.openSnackBar('Board created','Ok');
+  }
+
+  saveAndCreate() {
+    this.boardData.saveData();
+    this.boardData.createBoard(undefined,true)
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action);
   }
 
   changeName(event: Event) {

@@ -52,7 +52,7 @@ export class BoardDataService implements OnInit{
     this.boards = boards;
   }
 
-  createBoard(board?: Board) {
+  createBoard(board?: Board, clearNotes?: boolean) {
     const id = uuid();
 
     if(board) {
@@ -87,8 +87,7 @@ export class BoardDataService implements OnInit{
       }
     }).then(()=>{
       try {
-        this.nodeService.clearAll();
-        this.saveData()
+        if(clearNotes) this.nodeService.clearAll();
       } catch (error) {}
     })
 
@@ -121,8 +120,6 @@ export class BoardDataService implements OnInit{
         break;
     }
 
-    console.log(sprintRetro)
-    console.log(kanban)
     const id = uuid();
     this.boards.push({
       id,
@@ -262,7 +259,6 @@ export class BoardDataService implements OnInit{
   }
 
   deleteBoard(id: string) {
-    console.log('DELETE BOARD (board data)')
     let newBoards: Board[] = this.boards.filter((board: Board)=>{
       if(board.id === id) {
         return false;
@@ -283,7 +279,6 @@ export class BoardDataService implements OnInit{
         } else {
           element.favorite = true;
         }
-        console.log(JSON.stringify(element))
         this.es.saveInDevice(JSON.stringify(element));
       }
       return element
