@@ -4,8 +4,9 @@ Hibounote-win32-x64
 # Data storage
 data/boards.json
 
-# Compiled output 
+# Compiled output
 /dist
+/out
 /tmp
 /out-tsc
 /bazel-out

@@ -3,7 +3,7 @@
   "productName":"hibounote",
   "version": "1.0.0",
   "main": "main.js",
-  "author": "gfsilva",
+  "author": "hibounoteapp",
   "description": "A free alternative to organize your projects into visual boards.",
   "scripts": {
     "ng": "ng",
@@ -18,12 +18,12 @@
       "target":[
         "nsis"
       ],
-      "icon":"favicon.ico"
+      "icon":"icon.ico"
     },
     "nsis":{
       "oneClick":false,
-      "installerIcon":"favicon.ico",
-      "uninstallerIcon":"favicon.ico",
+      "installerIcon":"icon.ico",
+      "uninstallerIcon":"icon.ico",
       "uninstallDisplayName":"hibounote-uninstaller",
       "license":"LICENSE",
       "allowToChangeInstallationDirectory":true

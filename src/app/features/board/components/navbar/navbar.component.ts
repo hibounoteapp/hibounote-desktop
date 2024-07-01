@@ -87,6 +87,7 @@ export class NavbarComponent {
     dialog.afterClosed().subscribe((result)=>{
       if(result==="DELETE") {
         this.boardData.deleteBoard(this.boardData.activeId);
+        this.router.navigate(['/account']);
       }
     })
   }
