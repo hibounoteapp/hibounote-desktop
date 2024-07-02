@@ -18,13 +18,14 @@
       "target":[
         "nsis"
       ],
-      "icon":"icon.ico"
+      "icon":"src/assets/icon.ico"
     },
     "mac": {
-      "icon":"icon.icns"
+      "icon":"src/assets/icon.icns"
     },
     "linux": {
-      "target":"AppImage"
+      "target":"deb",
+      "icon":"src/assets/icon.png"
     },
     "nsis":{
       "oneClick":false,
