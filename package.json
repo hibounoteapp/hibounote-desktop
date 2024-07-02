@@ -3,7 +3,7 @@
   "productName":"hibounote",
   "version": "1.0.0",
   "main": "main.js",
-  "author": "hibounoteapp",
+  "author": "hibounoteapp <hibounoteapp@gmail.com>",
   "description": "A free alternative to organize your projects into visual boards.",
   "scripts": {
     "ng": "ng",
@@ -19,6 +19,12 @@
         "nsis"
       ],
       "icon":"icon.ico"
+    },
+    "mac": {
+      "icon":"icon.icns"
+    },
+    "linux": {
+      "target":"AppImage"
     },
     "nsis":{
       "oneClick":false,
