@@ -1,7 +1,7 @@
 {
   "name": "hibounote",
   "productName":"hibounote",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "main.js",
   "author": "hibounoteapp <hibounoteapp@gmail.com>",
   "description": "A free alternative to organize your projects into visual boards.",

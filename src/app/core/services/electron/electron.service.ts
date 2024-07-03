@@ -24,6 +24,10 @@ export class ElectronService {
     this.electron.deleteBoard(id);
   }
 
+  deleteAll() {
+    this.electron.deleteAll();
+  }
+
   openLink(link: string) {
     this.electron.openLink(link);
   }

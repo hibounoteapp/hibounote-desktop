@@ -25,6 +25,7 @@ export class BoardService {
     y: number,
   }
   appRenderer!: Renderer2;
+  lockDrag: boolean = false;
 
   constructor(
     protected activeRoute: ActivatedRoute
@@ -119,6 +120,23 @@ export class BoardService {
     })
   }
 
+  keydown = (event: KeyboardEvent) => {
+    console.log('KEY DOWN', event.code)
+    if (event.key === " " || event.code === "Space"){
+      this.lockDrag = true;
+      console.log(this.lockDrag)
+    }
+  }
+
+  keyup = (event: KeyboardEvent) => {
+    console.log('KEY UP', event.code)
+    if (event.key == " " || event.code == "Space"){
+      this.lockDrag = false;
+      console.log(this.lockDrag)
+    }
+  }
+
+
   dropNode = (event: DragEvent, nodeService: NodeService, container: ElementRef, renderer: Renderer2) => {
     if(event.dataTransfer?.dropEffect) {
       event.dataTransfer.dropEffect = 'move';
@@ -141,8 +159,11 @@ export class BoardService {
     this.disablePanzoom()
   }
 
-  pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2) => {
-    if(event.button == 1) return;
+  pointerDown = (event: PointerEvent, nodeService: NodeService, renderer:Renderer2, boardContainer?: HTMLElement) => {
+    if(event.button == 1 || this.lockDrag) {
+      if(boardContainer) boardContainer.style.cursor = 'grabbing'
+      return
+    };
 
     const abstractDocument:Document = renderer.selectRootElement(document, true)
     if(abstractDocument.activeElement && abstractDocument.activeElement instanceof HTMLElement) abstractDocument.activeElement.blur()

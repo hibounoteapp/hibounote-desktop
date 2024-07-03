@@ -48,6 +48,11 @@ export class BoardDataService implements OnInit{
       }
   }
 
+  deleteAll() {
+    this.boards = [];
+    this.es.deleteAll();
+  }
+
   loadBoards(boards: Board[]) {
     this.boards = boards;
   }

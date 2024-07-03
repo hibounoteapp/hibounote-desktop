@@ -211,7 +211,7 @@ export class BoardComponent implements AfterViewInit, OnInit{
       (event: PointerEvent)=>{
         if(event.button != 2) this.boardService.contextMenu.show = false;
         this.boardService.contextMenu.show = false
-        this.boardService.pointerDown(event,this.nodeService,this.renderer)
+        this.boardService.pointerDown(event,this.nodeService,this.renderer, this.boardContainer.nativeElement)
     })
 
     this.renderer.listen(this.boardContainer.nativeElement,
@@ -244,6 +244,18 @@ export class BoardComponent implements AfterViewInit, OnInit{
       if(!(event.target instanceof Element)) return;
 
     })
+
+    this.renderer.listen(window,'keydown',(event:KeyboardEvent)=>{
+      this.boardService.keydown(event);
+      if(event.code === "Space") this.boardContainer.nativeElement .style.cursor = 'grab'
+    })
+
+    this.renderer.listen(window,'keyup',(event:KeyboardEvent)=>{
+      this.boardService.keyup(event);
+      if(event.code === "Space") this.boardContainer.nativeElement .style.cursor = ''
+    })
+
+
   }
 
   constructor(

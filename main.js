@@ -31,6 +31,16 @@ function createWindow () {
   })
 }
 
+ipcMain.on('deleteAll',()=>{
+  fs.rmSync(path.join(os.homedir(),'hibounote','data','boards'),{force: true, recursive:true})
+
+  fs.mkdir(path.join(os.homedir(),'hibounote','data','boards'),(err)=>{
+    if(err) {
+      console.log(err)
+    }
+  })
+})
+
 ipcMain.on('openLink',(event,link) => {
   electron.shell.openExternal(link);
 })
@@ -38,27 +48,28 @@ ipcMain.on('openLink',(event,link) => {
 ipcMain.on('saveBoard',(event, jsonValue)=>{
   const boardId = JSON.parse(jsonValue).id;
 
-  if(!fs.existsSync(`${os.homedir()}/hibounote/data`)) {
-    console.log("Dont exist")
+  if(!fs.existsSync(`${os.homedir()}/hibounote/data/boards`)) {
     fs.mkdirSync(path.join(os.homedir(),'hibounote'),(err)=>{
       if(err) {
         console.log(err)
-        return;
       }
-      console.log('hibounote dir created')
     })
 
     fs.mkdirSync(path.join(os.homedir(),'hibounote','data'),(err)=>{
       if(err) {
         console.log(err)
-        return;
       }
-      console.log('data dir created')
+    })
+
+    fs.mkdirSync(path.join(os.homedir(),'hibounote','data','boards'),(err)=>{
+      if(err) {
+        console.log(err)
+      }
     })
   }
 
 
-  fs.writeFileSync(`${os.homedir()}/hibounote/data/board-${boardId.substring(0,8)}.json`,jsonValue,(err)=>{
+  fs.writeFileSync(`${os.homedir()}/hibounote/data/boards/board-${boardId.substring(0,8)}.json`,jsonValue,(err)=>{
     if(err) {console.log(err)}
   })
 })
@@ -66,11 +77,11 @@ ipcMain.on('saveBoard',(event, jsonValue)=>{
 function readFiles() {
   return new Promise((resolve, reject) => {
 
-    fs.readdir(path.join(os.homedir(),'hibounote','data'),
+    fs.readdir(path.join(os.homedir(),'hibounote','data','boards'),
       (err,files)=>{
         let boards = [];
         files.forEach(file=>{
-          const data = fs.readFileSync(path.join(os.homedir(),'hibounote','data',file),{encoding:'utf-8'})
+          const data = fs.readFileSync(path.join(os.homedir(),'hibounote','data','boards',file),{encoding:'utf-8'})
           boards.push(JSON.parse(data));
         })
         resolve(JSON.stringify(boards));
@@ -80,7 +91,7 @@ function readFiles() {
 }
 
 ipcMain.handle('getBoards', async ()=>{
-  if(!fs.existsSync(`${os.homedir()}/hibounote/data`)) return;
+  if(!fs.existsSync(`${os.homedir()}/hibounote/data/boards`)) return;
   return await readFiles()
   .then((data)=>{
     return data;
@@ -97,8 +108,8 @@ ipcMain.on('deleteBoard',(event, id)=>{
   console.log('DELETE BOARD (board data)')
   const boardId = id.substring(0,8)
   console.log(boardId)
-  if(fs.existsSync(path.join(os.homedir(),'hibounote','data',`board-${boardId}.json`))) {
-    fs.unlinkSync(path.join(os.homedir(),'hibounote','data',`board-${boardId}.json`))
+  if(fs.existsSync(path.join(os.homedir(),'hibounote','data','boards',`board-${boardId}.json`))) {
+    fs.unlinkSync(path.join(os.homedir(),'hibounote','data','boards',`board-${boardId}.json`))
   }
 })
 
