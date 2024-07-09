@@ -1,5 +1,5 @@
 div.sidebar-container {
-  @apply h-full border-e-[1px] border-e-background-400 shadow px-8 min-w-72 bg-background-base-50;
+  @apply h-full border-e-[1px] border-e-background-400 dark:border-background-dark-700  shadow px-8 bg-background-base-50 dark:bg-background-dark-900 w-[20vw];
 
   display: grid;
   grid-auto-columns: 1fr;
@@ -25,7 +25,7 @@ div#utilLinks {
     @apply flex flex-row items-center justify-start my-1 transition-all py-2 px-2 rounded;
 
     &:hover {
-      @apply bg-background-200 transition-all;
+      @apply bg-background-200 dark:bg-background-dark-800 transition-all;
     }
 
     p {
@@ -65,14 +65,14 @@ div.iconText {
 
   &:hover {
 
-    @apply bg-background-200 transition-all;
+    @apply bg-background-200 dark:bg-background-dark-800 transition-all;
 
     button {
       @apply flex transition-all;
 
       &:hover {
         filter: brightness(0.95);
-        @apply bg-background-300 rounded;
+        @apply bg-background-300 dark:bg-background-dark-700 rounded;
       }
     }
   }
@@ -80,7 +80,7 @@ div.iconText {
 
 div#tags-fav-container {
   grid-area: tags-fav-container;
-  @apply border-[1px] border-background-400 rounded overflow-auto flex flex-col items-center mb-4;
+  @apply border-[1px] border-background-400 dark:border-background-dark-700 rounded overflow-auto flex flex-col items-center;
 
 
 
@@ -108,7 +108,7 @@ div#tags-fav-container {
 }
 
 ::-webkit-scrollbar-track {
-  @apply rounded bg-background-200 m-1;
+  @apply rounded bg-background-200 dark:bg-background-dark-900 m-1;
 }
 
 ::-webkit-scrollbar-thumb {
