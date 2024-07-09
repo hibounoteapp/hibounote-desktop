@@ -10,6 +10,7 @@ import { SimpleButtonComponent } from '@shared-components/simple-button';
 import { BoardDataService } from '@shared-services/board-data/board-data.service';
 import { DeleteConfirmationComponent } from '../../../edit-board-modal/components/delete-confirmation/delete-confirmation.component';
 import { ElectronService } from '@core-services/electron/electron.service';
+import { UserDataService } from '@core-services/user-data/user-data.service';
 
 @Component({
   selector: 'app-settings-modal',
@@ -24,7 +25,9 @@ export class SettingsModalComponent {
     protected dialog: MatDialog,
     protected boardData: BoardDataService,
     private selfDialog: MatDialogRef<SettingsModalComponent>,
-    protected es: ElectronService){}
+    protected es: ElectronService,
+    public userData: UserDataService
+  ){}
 
   confirmDelete() {
     const dialog = this.dialog.open(DeleteConfirmationComponent, {
