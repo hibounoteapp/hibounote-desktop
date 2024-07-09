@@ -54,14 +54,24 @@ npm install
 ```
 <br>
 
-2. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 ```
 ng serve
 ```
+
+Run `npm run start` to open the electron preview.
+```
+npm run start
+```
+
+
 The development environment should now be set up.
+
 <br>
 
 ### Build
+Run `npm run build` to build the project with [electron-builder](https://www.electron.build/index.html). See the website to build to different platforms (MacOS, Linux or Windows).
+
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ### Running unit tests
@@ -88,6 +98,8 @@ Find the contributing guide [here](./contributing.md)
 
 ## 💬Stay in touch
 - [X (twitter)](https://x.com/hibounote)
+- [Instagram](https://www.instagram.com/hibounote)
+- [Roadmap and Goals](https://github.com/hibounoteapp/hibounote/discussions/19)
 
 <br>
 
@@ -101,6 +113,11 @@ Find the contributing guide [here](./contributing.md)
 
 - [Feather Icons](https://feathericons.com)
 - [Ionicons](https://ionic.io/ionicons)
+- [FontAwesome](https://fontawesome.com)
+
+### Background images
+
+- [Haikei](https://app.haikei.app)
 
 <br>
 
